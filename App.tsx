@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { item, itemAdderProps, listProps } from './types';
 import List from './components/List';
@@ -33,6 +33,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
+        <Text style={styles.title}>Todo list</Text>
         <ItemAdder props={{...itemAdderProps}} />
         <List props={listProps}/>
         <StatusBar style="auto" />
@@ -42,5 +43,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  
+  title: {
+    alignSelf: 'center',
+    fontSize: 30,
+  },
 });
