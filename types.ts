@@ -6,7 +6,7 @@ export type item = {
 
 export type listState = {
   list: item[]
-  startSaving: boolean
+  save: boolean
 }
 
 export type itemAdderProps = {
