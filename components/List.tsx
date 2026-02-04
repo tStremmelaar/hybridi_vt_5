@@ -1,14 +1,18 @@
-import { FlatList, StyleSheet, Text } from "react-native";
-import { item } from "../types";
+import { FlatList, Pressable, StyleSheet, Text } from "react-native";
+import { listProps } from "../types";
 
-export default function List({list}: {list: item[]}) {
+export default function List({props}: {props: listProps}) {
+  const list = props.list
+
   return (
     <FlatList
       data={list}
-      renderItem={({item}) => 
-        <Text style={[styles.item, (item.done) ? styles.done : null]}>
-          {item.text}
-        </Text>
+      renderItem={({item}) =>
+        <Pressable onPress={() => props.toggleDone(item.id)}>
+          <Text style={[styles.item, (item.done) ? styles.done : null]}>
+            {item.text}
+          </Text>
+        </Pressable>
       }
     />
   )
@@ -20,7 +24,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 5,
     paddingBottom: 5,
-    fontSize: 20,
+    fontSize: 18,
   },
   done: {
     textDecorationLine: 'line-through'

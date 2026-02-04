@@ -7,3 +7,8 @@ export type item = {
 export type itemAdderProps = {
   add: (text: string) => void
 }
+
+export type listProps = {
+  list: item[],
+  toggleDone: (id: number) => void
+}
