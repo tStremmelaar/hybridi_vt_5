@@ -1,17 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { item } from './types';
-import Item from './components/Item';
+import { item, itemAdderProps } from './types';
 import List from './components/List';
+import ItemAdder from './components/ItemAdder';
 
 export default function App() {
   const [list, setList] = useState<item[]>([{id: 0, text: 'Hello, World!'}, {id: 1, text: 'Hello, you!'}])
 
+  function addItem(text: string): void {
+    const ids = list.map(i => i.id)
+    const id = Math.max(...ids) + 1
+    const item: item = {id: id, text: text}
+    setList([...list, item])
+  }
+  const itemAdderProps: itemAdderProps = {add: addItem}
+
   return (
     <SafeAreaProvider>
       <SafeAreaView>
+        <ItemAdder props={{...itemAdderProps}} />
         <List list={list}/>
         <StatusBar style="auto" />
       </SafeAreaView>
