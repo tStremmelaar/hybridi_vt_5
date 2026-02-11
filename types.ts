@@ -7,17 +7,18 @@ export type item = {
   done: boolean
 }
 
-export type listState = {
-  list: item[]
-  save: boolean
-}
+export type list = item[]
 
 export type itemAdderProps = {
-  add: (text: string) => void
+  add: (itemText: string) => void
 }
 
 export type listProps = {
-  list: item[]
+  list: list
   listRef: RefObject<FlatList<any> | null>
   toggleDone: (id: number) => void
 }
+
+export type todosAction =
+  | { type: 'itemAdded'; itemText: string }
+  | { type: 'doneToggled'; id: number }
