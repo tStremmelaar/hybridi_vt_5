@@ -1,25 +1,31 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useEffect, useRef, useState } from "react"
-import { item, itemAdderProps, listProps } from "../types"
-import { FlatList, StyleSheet, Text, View } from "react-native"
+import { itemAdderProps, listProps } from "../types"
+import { StyleSheet, Text, View } from "react-native"
 import ItemAdder from "./ItemAdder"
 import List from "./List"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import useTodos from "../hooks/useTodos"
+import { useRef, useState } from "react"
 
 export default function Main() {
+  const [width, setWidth] = useState<number>(0)
   const todos = useTodos([])
-  const itemAdderProps: itemAdderProps = {add: todos.addItem}
-
-
+  
   const insets = useSafeAreaInsets()
-  const key = 'list-key'
-  const listRef = useRef<FlatList>(null)
 
-  const listProps: listProps = { list: todos.value, listRef, toggleDone: todos.toggleDone }
+  const itemAdderProps: itemAdderProps = {add: todos.addItem}
+  const listProps: listProps = {
+    list: todos.value,
+    toggleDone: todos.toggleDone,
+    deleteItem: todos.deleteItem,
+    parentWidth: width
+  }
+
   return (
     <View style={styles.container}>
-      <View style={[{paddingTop: insets.top}, styles.top]}>
+      <View
+        style={[{paddingTop: insets.top}, styles.top]}
+        onLayout={(event) => setWidth(event.nativeEvent.layout.width)}
+      >
         <Text style={styles.title}>Todo list</Text>
         <ItemAdder props={{...itemAdderProps}} />
       </View>

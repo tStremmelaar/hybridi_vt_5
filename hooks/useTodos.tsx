@@ -1,5 +1,5 @@
-import { useReducer, useState } from "react";
-import { item, list } from "../types";
+import { useReducer } from "react";
+import { list } from "../types";
 import todosReducer from "../reducers/todosReducer";
 
 export default function useTodos(initialList: list) {
@@ -9,6 +9,13 @@ export default function useTodos(initialList: list) {
     dispatch({
       type: 'itemAdded',
       itemText
+    })
+  }
+
+  function handleDeleteItem(id: number) {
+    dispatch({
+      type: 'itemDeleted',
+      id
     })
   }
 
@@ -22,6 +29,7 @@ export default function useTodos(initialList: list) {
   const todosProps = {
     value: list,
     addItem: handleAddItem,
+    deleteItem: handleDeleteItem,
     toggleDone: handleToggleDone
   }
 

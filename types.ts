@@ -1,6 +1,3 @@
-import { RefObject } from "react"
-import { FlatList } from "react-native"
-
 export type item = {
   id: number
   text: string
@@ -15,10 +12,12 @@ export type itemAdderProps = {
 
 export type listProps = {
   list: list
-  listRef: RefObject<FlatList<any> | null>
   toggleDone: (id: number) => void
+  deleteItem: (id: number) => void
+  parentWidth: number
 }
 
 export type todosAction =
   | { type: 'itemAdded'; itemText: string }
+  | { type: 'itemDeleted'; id: number }
   | { type: 'doneToggled'; id: number }
